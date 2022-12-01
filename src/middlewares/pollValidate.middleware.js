@@ -1,22 +1,22 @@
-import pollSchema from '../models/pollJoi.model.js'
-import choiceSchema from '../models/pollJoi.model.js'
+import {pollSchema} from '../models/pollModel.js'
+/* import {choiceSchema} from '../models/pollModel.js' */
 
 export async function pollPostValidate(req, res, next){
 
-    const {title} = req.body;
+    const poll = req.body;
 
-    const { error } = pollSchema.validate(title, { abortEarly: false });
+    const { error } = pollSchema.validate(poll, { abortEarly: false });
     if(error){
         const errors = error.details.map((detail) => detail.message);
         return res.status(422).send(errors);
     }
 
 
-
+    next();
 
 }
 
-export async function choiceValidate(req, res, next){
+/* export async function choiceValidate(req, res, next){
 
     const choice = req.body;
     const { pollId, title } = req.body;
@@ -28,4 +28,6 @@ export async function choiceValidate(req, res, next){
         return res.status(422).send(errors);
     }
     
-}
+    next();
+    
+} */
