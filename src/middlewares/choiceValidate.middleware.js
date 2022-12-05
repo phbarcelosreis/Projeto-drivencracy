@@ -3,7 +3,7 @@ import { poll, choice } from "../database/db.js";
 import { choiceSchema } from "../models/model.js";
 import { zero } from "../controllers/poll.controller.js";
 
-function formatDate(){
+export function formatDate(){
     const data = new Date();
     data.setDate(data.getDate());
     const dia = zero(data.getDate());
