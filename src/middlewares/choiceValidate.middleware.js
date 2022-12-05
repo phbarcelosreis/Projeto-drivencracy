@@ -1,6 +1,19 @@
 import { ObjectId } from "mongodb";
 import { poll, choice } from "../database/db.js";
 import { choiceSchema } from "../models/model.js";
+import { zero } from "../controllers/poll.controller.js";
+
+function formatDate(){
+    const data = new Date();
+    data.setDate(data.getDate());
+    const dia = zero(data.getDate());
+    const mes = zero(data.getMonth() + 1);
+    const ano = zero(data.getFullYear());
+    const hora = zero(data.getHours());
+    const minutos = zero(data.getMinutes());
+
+    return `${dia}-${mes}-${ano} ${hora}:${minutos}`
+}
 
 export async function choiceValidate(req, res, next){
 
@@ -25,6 +38,12 @@ export async function choiceValidate(req, res, next){
         return res.sendStatus(404);
     }
 
+    const date = formatDate();
+    const newDate = Date.parse(date);
+    const newDate2 = Date.parse(checkPoll.expireAt)
+    if(newDate > newDate2){
+        return res.sendStatus(403);
+    }
     
     next();
     

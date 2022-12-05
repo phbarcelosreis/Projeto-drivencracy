@@ -1,6 +1,6 @@
 import { poll } from "../database/db.js"
 
-function zero(n){
+export function zero(n){
     return n < 9 ? `0${n}` : `${n}`;
 }
 
@@ -59,7 +59,7 @@ export async function pollGet(req, res) {
         const polls = await poll.find({}).toArray()
         console.log(polls);
 
-        res.send(polls)
+        res.send(polls);
 
     } catch (err) {
 
